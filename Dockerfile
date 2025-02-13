@@ -1,20 +1,31 @@
-FROM richarvey/nginx-php-fpm:3.1.6
+# Use the official PHP image with required extensions
+FROM php:8.2-fpm
 
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    curl \
+    libpq-dev \
+    && docker-php-ext-install pdo pdo_pgsql
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Copy application files
 COPY . .
 
-# Image config
-ENV SKIP_COMPOSER 1
-ENV WEBROOT /var/www/html/public
-ENV PHP_ERRORS_STDERR 1
-ENV RUN_SCRIPTS 1
-ENV REAL_IP_HEADER 1
+# Install Composer globally
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Laravel config
-ENV APP_ENV production
-ENV APP_DEBUG false
-ENV LOG_CHANNEL stderr
+# Install PHP dependencies
+RUN composer install --no-dev --optimize-autoloader
 
-# Allow composer to run as root
-ENV COMPOSER_ALLOW_SUPERUSER 1
+# Set correct permissions
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-CMD ["/start.sh"]
+# Expose the application port
+EXPOSE 9000
+
+# Start PHP-FPM
+CMD ["php-fpm"]
