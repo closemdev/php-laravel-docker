@@ -1,5 +1,5 @@
 # Use the official PHP image with Apache
-FROM php:8.1.8-apache-bullseye
+FROM php:8.2-apache-bullseye
 
 # Set & update APACHE_DOCUMENT_ROOT
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
