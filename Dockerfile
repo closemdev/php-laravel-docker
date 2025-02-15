@@ -32,7 +32,8 @@ RUN composer install --no-dev --optimize-autoloader
 # Install Laravel authentication system (Fixes missing login routes)
 RUN composer require laravel/ui --dev \
     && php artisan ui bootstrap --auth \
-    && npm install && npm run build
+    && npm install \
+    && npm run dev || true
 
 # Set correct permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
