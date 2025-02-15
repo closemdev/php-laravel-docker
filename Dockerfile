@@ -19,6 +19,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     unzip \
     libpq-dev \
     supervisor \
+    nodejs \
+    npm \
     && docker-php-ext-install pdo pdo_pgsql
 
 # Install Composer globally
@@ -27,14 +29,12 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
+# Install Laravel authentication system (Fixes missing login routes)
+RUN composer require laravel/ui --dev \
+    && php artisan ui bootstrap --auth --force \
+    && npm install && npm run build
+
 # Set correct permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Enable Apache mod_rewrite
-RUN a2enmod rewrite
-
-# Expose the correct port
-EXPOSE 80
-
-# Start Apache
-CMD ["apache2-foreground"]
+# Enable
