@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,8 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// ✅ Route for Promp.ly UI
+Route::get('/', [UIController::class, 'index'])->name('home');
 
-Route::get('/home', 'HomeController@index')->name('home');
+// ✅ Authentication Routes
+Auth::routes();
+
+// ✅ Dashboard Route (If Needed)
+Route::get('/dashboard', [HomeController::class, 'index'])->middleware(['auth'])->name('dashboard');
+
+// ✅ Catch-All Route for Frontend (If Using Vue/React)
+Route::get('{any}', [UIController::class, 'index'])->where('any', '.*');
