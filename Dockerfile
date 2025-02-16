@@ -39,3 +39,5 @@ RUN composer require laravel/ui --dev \
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Enable
+# Enable Apache rewrite module
+RUN a2enmod rewrite
