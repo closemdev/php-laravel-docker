@@ -33,7 +33,7 @@ RUN COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader |
 RUN composer require laravel/ui --dev \
     && php artisan ui bootstrap --auth \
     && npm install \
-    && npm run dev || true
+    && npm run production || true
 
 # Set correct permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
