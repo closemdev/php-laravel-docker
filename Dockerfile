@@ -13,14 +13,14 @@ WORKDIR /var/www/html
 # Copy application files
 COPY . .
 
-# Install system dependencies
+# Install system dependencies & Node.js 18
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     unzip \
     libpq-dev \
     supervisor \
-    nodejs \
-    npm \
+    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs \
     && docker-php-ext-install pdo pdo_pgsql
 
 # Install Composer globally
