@@ -1,9 +1,21 @@
-// Fonts
-@use url('https://fonts.googleapis.com/css?family=Nunito');
-
-// Variables
-@use 'variables';
-
-// Bootstrap
+// ✅ ALL @use statements MUST go at the top!
 @use "bootstrap/scss/bootstrap" as *;
+@use "variables";
 
+// ✅ Import Google Fonts (using @import because @use doesn't support URLs)
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// ✅ You can add your global styles below:
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: #f8fafc;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+// ✅ Add any other styles below as needed
