@@ -1,1 +1,0 @@
-import{o as e,c as o,b as t}from"./main-2329afd4.js";const n={viewBox:"0 0 24 24",width:"1.2em",height:"1.2em"},r=t("path",{fill:"none",stroke:"currentColor","stroke-linecap":"round","stroke-linejoin":"round","stroke-width":"1.5",d:"m8.25 4.5l7.5 7.5l-7.5 7.5"},null,-1),c=[r];function s(i,h){return e(),o("svg",n,c)}const a={name:"heroicons-chevron-right",render:s};export{a as C};
