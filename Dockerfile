@@ -41,3 +41,7 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 # Enable
 # Enable Apache rewrite module
 RUN a2enmod rewrite
+
+CMD gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json && \
+    gsutil -m rsync -r public/dist gs://closem-assets/promply/ && \
+    php artisan serve --host 0.0.0.0 --port $PORT
